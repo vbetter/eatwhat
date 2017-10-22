@@ -12,49 +12,17 @@ Page({
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
       items: [
-      { name: '0', value: '快餐', checked: 'true'},
-      { name: '1', value: '下午茶'},
+      { name: '1', value: '快餐', checked: 'true'},
+      { name: '2', value: '下午茶'},
     ]
   },
   onLoad: function () {
     var foodType = app.globalData.m_foodType;
     app.globalData.m_foodType = foodType == 0 ? 1 : foodType;
 
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-      this.login();
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-        this.login();
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-
-          console.log(app.globalData.userInfo)
-
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-          this.login();
-        }
-      })
-    }
+    this.login_wx();
   },
   getUserInfo: function(e) {
-    console.log(e)
     app.globalData.userInfo = e.detail.userInfo
     console.log(app.globalData.userInfo)
 
@@ -66,11 +34,12 @@ Page({
   btn_enter: function (e) {
     if (!m_isLogin) {
       wx.showToast({
-        title: '登录失败',
+        title: '登录失败,再点一下试试',
         icon: 'loading',
         duration: 2000
       });
 
+      this.login_server();
       return;
     }
 
@@ -95,10 +64,22 @@ Page({
         wx.hideLoading();
 
         console.log("res:",res);
-        app.globalData.m_foodData = res.data.data.food_info;
-        wx.navigateTo({
-          url: '../mainPage/mainPage'
-        })
+
+        if (res.data.data==null)
+        {
+          wx.showToast({
+            title: '获取菜单失败',
+            icon: 'loading',
+            duration: 2000
+          });
+
+          console.log("[request] m_foodType:",app.globalData.m_foodType);
+        }else{
+          app.globalData.m_foodData = res.data.data.food_info;
+          wx.navigateTo({
+            url: '../mainPage/mainPage'
+          })
+        }
       },
       fail: function (res) {
         wx.hideLoading();
@@ -113,7 +94,6 @@ Page({
   },
   radioChange: function (e) {
     console.log('checkbox发生change事件，携带value值为：', e.detail.value);
-    MenuMgr.SetItemType(e.detail.value);
 
     app.globalData.m_foodType = e.detail.value;
   },
@@ -142,7 +122,7 @@ Page({
       url: '../appSetting/appSetting',
     })
   },
-  login:function()
+  login_server:function()
   {
     wx.showLoading({
       title: '加载中',
@@ -179,6 +159,42 @@ Page({
         });
       }
     })
+  },
+  login_wx:function()
+  {
+
+    if (app.globalData.userInfo) {
+      this.setData({
+        userInfo: app.globalData.userInfo,
+        hasUserInfo: true
+      })
+      this.login_server();
+    } else if (this.data.canIUse) {
+      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+      // 所以此处加入 callback 以防止这种情况
+      app.userInfoReadyCallback = res => {
+        this.setData({
+          userInfo: res.userInfo,
+          hasUserInfo: true
+        })
+        this.login_server();
+      }
+    } else {
+      // 在没有 open-type=getUserInfo 版本的兼容处理
+      wx.getUserInfo({
+        success: res => {
+          app.globalData.userInfo = res.userInfo
+
+          console.log(app.globalData.userInfo)
+
+          this.setData({
+            userInfo: res.userInfo,
+            hasUserInfo: true
+          })
+          this.login_server();
+        }
+      })
+    }
   }
 
 })

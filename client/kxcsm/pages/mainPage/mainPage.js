@@ -3,7 +3,6 @@ var MenuMgr = require('../Utils/MenuMgr.js')
 var UserMgr = require('../Utils/UserMgr.js')
 
 var m_curConfig;
-var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 
 var m_enableUse = true;//能否界面交互
 
@@ -11,7 +10,6 @@ var m_isLike = false;//是否点赞
 
 //获取应用实例
 const app = getApp()
-var m_mainPage;
 
 Page({
   data: 
@@ -35,37 +33,13 @@ Page({
   onLoad: function () 
   {
     var that = this;
-    wx.getSystemInfo({
-      success: function (res) {
-        that.setData({
 
-        });
-      }
-    });
+    m_curConfig = app.globalData.m_foodData;
 
-    this.initPage(app.globalData.m_foodData);
-  },
-  btn_eat: function (e) {
-    console.log("btn_eat");
+    this.UpdateUI();
 
-    wx.showModal({
-      title: '提示',
-      content: '帮您一键下单，10分钟内送达',
-      success: function (res) {
-        if (res.confirm) {
-          console.log('用户点击确定')
-
-          wx.showModal({
-            title: '提示',
-            content: '未开发完成',
-            success: function (res) {
-              if (res.confirm) {
-                console.log('用户点击确定')
-              }
-            }
-          })
-        }
-      }
+    wx.setNavigationBarTitle({
+      title: m_curConfig.name,
     })
   },
   //点击喜欢
@@ -140,15 +114,6 @@ Page({
       }
     })
   },
-  //初始化页面数据
-  initPage: function (itemdata) {
-
-    this.UpdateUI();
-
-    wx.setNavigationBarTitle({
-      title: itemdata.name,
-    })
-  },
   onShareAppMessage: function (res) {
     if (res.from === 'button') {
       // 来自页面内转发按钮
@@ -213,6 +178,7 @@ Page({
       }
     })
   },
+  //评分
   bindPickerChange: function (e) {
     var that = this;
     console.log('picker发送选择改变，携带值为', e.detail.value)
@@ -276,10 +242,6 @@ Page({
     });
 
     this.setStar(m_curConfig.score_info.score);
-  },
-  btn_score:function(e)
-  {
-console.log("222")
   },
   //星星评分
   setStar:function(e)
