@@ -1,0 +1,12 @@
+<view class="page">
+    <view class="page__hd">
+        <view class="page__title">协议测试</view>
+        <view class="page__desc">{{text_desc}}</view>
+    </view>
+    <view class="page__bd page__bd_spacing">
+        <button class="weui-btn" type="primary" bindtap="btn_login">登陆</button>
+        <button class="weui-btn" type="primary" bindtap="btn_getfood_fast">获取快餐</button>
+        <button class="weui-btn" type="primary" bindtap="btn_getfood_drink">获取下午茶</button>
+        
+    </view>
+</view>

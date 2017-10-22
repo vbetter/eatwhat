@@ -1,0 +1,15 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/mainPage/mainPage",        
+    "pages/logs/logs",
+    "pages/myNote/myNote",
+    "pages/appSetting/appSetting"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "科兴吃什么",
+    "navigationBarTextStyle": "black"
+  }
+}

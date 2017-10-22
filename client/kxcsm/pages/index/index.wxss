@@ -1,0 +1,51 @@
+/**index.wxss**/
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.checkbox
+{
+  
+  margin-top: 100rpx;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+.btn_enter {
+  margin-top: 100rpx;
+}
+
+.bottom2
+{
+    display: flex;
+  margin-top: 250rpx;
+    align-items: center;
+}
+
+.btn_talk
+{
+      display: inline-flex;
+padding-left: -30rpx;
+}
+
+.btn_set
+{
+      display: inline-flex;
+      padding-left: 30rpx;
+}
+
+.usermotto {
+  font-size: 25rpx;
+  color: #aaa;
+}

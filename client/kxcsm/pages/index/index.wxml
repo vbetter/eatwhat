@@ -1,0 +1,41 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+
+<view class="checkbox">
+
+<radio-group class="radio-group" bindchange="radioChange">
+    <label class="radio" wx:for="{{items}}" wx:key="{{index}}">
+        <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+    </label>
+</radio-group>
+
+</view>
+
+  <view class="btn_enter">
+    <button style="width: 120px;" type="primary" size="50" loading="{{loading}}" plain="{{plain}}"disabled="{{disabled}}" bindtap="btn_enter"> 吃什么 </button>
+  </view>
+
+  <view class="bottom2 ">
+
+  <view class='btn_talk'>
+<button class="weui-btn mini-btn " type="default" size="mini" plain = "true" open-type = 'contact' style='border-style:hidden'>联系客服</button>
+  </view>
+
+  <view class='btn_set'>
+<button class="weui-btn mini-btn" type="default" size="mini" plain = "true" style='border-style:hidden' bindtap='btn_set'>应用设置</button>
+  </view>
+
+  </view>
+
+  <view class="usermotto">
+    <text class="user-motto" >{{motto}}</text>
+  </view>
+  
+</view>
