@@ -177,6 +177,8 @@ Page({
         });
       }
     })
+
+    wx.stopPullDownRefresh();
   },
   //评分
   bindPickerChange: function (e) {

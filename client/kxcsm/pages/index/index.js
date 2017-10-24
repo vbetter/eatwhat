@@ -7,7 +7,7 @@ var m_isLogin = false;//是否登录
 
 Page({
   data: {
-    motto: 'L 出品',
+    motto: '',
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
@@ -144,10 +144,22 @@ Page({
         wx.hideLoading();
 
         console.log(res);
-        app.globalData.token = res.data.data.token;
-        app.globalData.uid = res.data.data.uid;
 
-        m_isLogin = true;
+        if (res.data.data==null)
+        {
+          wx.showToast({
+            title: '数据异常',
+            icon: 'loading',
+            duration: 2000
+          });
+        }
+        else
+        {
+          app.globalData.token = res.data.data.token;
+          app.globalData.uid = res.data.data.uid;
+          m_isLogin = true;
+        }
+
       },
       fail: function (res) {
         wx.hideLoading();

@@ -14,7 +14,7 @@
 <view class="icons" >
 <image style="width: 200rpx; height: 80rpx; " mode="aspectFit" src="../res/icon/ic_shortcut_phone.png" bindtap="btn_phone"></image>
 <image style="width: 200rpx; height: 80rpx; " mode="aspectFit" src="../res/icon/ic_position.png" bindtap="btn_position"></image>
-  <image style="width: 200rpx; height: 80rpx; "  mode="aspectFit" src= "{{icon_like}}" bindtap="btn_like"></image>
+<image style="width: 200rpx; height: 80rpx; "  mode="aspectFit" src= "{{icon_like}}" bindtap="btn_like"></image>
 </view>
 
 <!--信息-->
