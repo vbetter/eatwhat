@@ -1,10 +1,27 @@
 <view class="page" style = "background-color: #F5F5F5">
         <view class="weui-panel">
-            <view class="weui-panel__hd">记录</view>
             <view class="weui-panel__bd">
                 <view class="weui-media-box weui-media-box_small-appmsg">
                     <view class="weui-cells weui-cells_in-small-appmsg">
-                        <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+
+                    <navigator url="../myNote/myNote" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                            <view class="weui-cell__hd"><image src="../res/icon/ic_mylove.png" style="width: 30px;height: 30px;margin-right: 5px" /></view>
+                            <view class="weui-cell__bd weui-cell_primary">
+                                <view>我喜欢</view>
+                            </view>
+                            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                        </navigator>
+
+                    <navigator url="../myNote/myNote" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                            <view class="weui-cell__hd"><image src="../res/icon/ic_notlove.png" style="width: 30px;height: 30px;margin-right: 5px" /></view>
+                            <view class="weui-cell__bd weui-cell_primary">
+                                <view>不喜欢</view>
+                            </view>
+                            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                        </navigator>
+
+
+                        <navigator url="../myNote/myNote" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
                             <view class="weui-cell__hd"><image src="../res/icon/ic_note.png" style="width: 30px;height: 30px;margin-right: 5px" /></view>
                             <view class="weui-cell__bd weui-cell_primary">
                                 <view>浏览记录</view>

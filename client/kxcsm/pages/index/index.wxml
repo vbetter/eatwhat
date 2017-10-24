@@ -29,7 +29,7 @@
   </view>
 
   <view class='btn_set'>
-<button class="weui-btn mini-btn" type="default" size="mini" plain = "true" style='border-style:hidden' bindtap='btn_set'>应用设置</button>
+<button class="weui-btn mini-btn" type="default" size="mini" plain = "true" style='border-style:hidden' bindtap='btn_set'>我的设置</button>
   </view>
 
   </view>
