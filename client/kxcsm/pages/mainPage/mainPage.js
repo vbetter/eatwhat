@@ -93,9 +93,22 @@ Page({
   //点击电话
   btn_phone:function(e)
   {
-    wx.makePhoneCall({
-      phoneNumber: m_curConfig.phone.toString(), //仅为示例，并非真实的电话号码
-    })
+    if (m_curConfig.phone == null || m_curConfig.phone == undefined)
+    {
+      wx.showToast({
+        title: '获取电话失败',
+        icon: 'loading',
+        duration: 2000
+      });
+
+      console.log("m_curConfig.phone:", m_curConfig.phone);
+    }
+    else
+    {
+      wx.makePhoneCall({
+        phoneNumber: m_curConfig.phone.tostring(), //仅为示例，并非真实的电话号码
+      })
+    }
   },
   //点击地址
   btn_position: function (e) {
