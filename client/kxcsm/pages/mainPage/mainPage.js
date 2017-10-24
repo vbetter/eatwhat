@@ -6,7 +6,6 @@ var m_curConfig;
 
 var m_enableUse = true;//能否界面交互
 
-var m_isLike = false;//是否点赞
 
 //获取应用实例
 const app = getApp()
@@ -46,7 +45,7 @@ Page({
   btn_like: function(e) 
   {
     var that = this;
-    var isLike = !m_isLike;
+    var isLike = m_curConfig.praise_info.state == 0 ?true:false;
     var url_like = isLike ? "https://wx.kuuvv.com/api/food/add_praise" : "https://wx.kuuvv.com/api/food/cancel_praise";
 
     wx.request({
@@ -65,13 +64,29 @@ Page({
 
         wx.hideLoading();
 
-        console.log(res);
-        m_isLike = isLike;
+        if (isLike)
+        {
+
+          app.globalData.m_foodData.praise_info.count++;
+          app.globalData.m_foodData.praise_info.state = 1;
+
+          console.log("点赞:", app.globalData.m_foodData.praise_info);
+        }else{
+
+          app.globalData.m_foodData.praise_info.count--;
+          app.globalData.m_foodData.praise_info.state = 0;
+
+          console.log("取消点赞:", app.globalData.m_foodData.praise_info);
+
+        }
+
+        m_curConfig = app.globalData.m_foodData;
+
         that.setData({
-          icon_like: m_isLike ? "../res/icon/ic_shortcut_thumb_up.png" : "../res/icon/ic_shortcut_thumb_up_0.png",
+          icon_like: m_curConfig.praise_info.state == 1 ? "../res/icon/ic_shortcut_thumb_up.png" : "../res/icon/ic_shortcut_thumb_up_0.png",
         });
 
-        var t_title = m_isLike ? '已点赞' : '已取消';
+        var t_title = m_curConfig.praise_info.state == 1 ? '已点赞' : '已取消';
         wx.showToast({
           title: t_title,
           icon: 'success',
@@ -93,7 +108,7 @@ Page({
   //点击电话
   btn_phone:function(e)
   {
-    if (m_curConfig.phone == null || m_curConfig.phone == undefined)
+    if (m_curConfig.tel == null || m_curConfig.tel == undefined)
     {
       wx.showToast({
         title: '获取电话失败',
@@ -101,12 +116,12 @@ Page({
         duration: 2000
       });
 
-      console.log("m_curConfig.phone:", m_curConfig.phone);
+      console.log("m_curConfig.phone:", m_curConfig.tel);
     }
     else
     {
       wx.makePhoneCall({
-        phoneNumber: m_curConfig.phone.tostring(), //仅为示例，并非真实的电话号码
+        phoneNumber: m_curConfig.tel.toString(), //仅为示例，并非真实的电话号码
       })
     }
   },
@@ -150,11 +165,8 @@ Page({
     }
   },
   onPullDownRefresh: function () {    
-    console.log("加载中");
+    //console.log("加载中");
     var that = this;
-    wx.showLoading({
-      title: '加载中',
-    })
 
     wx.showLoading({
       title: '加载中',
@@ -176,7 +188,18 @@ Page({
 
         wx.hideLoading();
 
-        console.log("res:", res);
+        console.log("菜单数据:", res);
+
+        if (res.statusCode != 200) {
+          wx.showToast({
+            title: '获取菜单失败',
+            icon: 'loading',
+            duration: 2000
+          });
+
+          return;
+        }
+
         app.globalData.m_foodData = res.data.data.food_info;
         that.UpdateUI();
       },
@@ -196,11 +219,12 @@ Page({
   //评分
   bindPickerChange: function (e) {
     var that = this;
-    console.log('picker发送选择改变，携带值为', e.detail.value)
+    var t_score = this.data.array[e.detail.value];
+
+    console.log('picker发送选择改变，携带值为', t_score)
     this.setData({
       index: e.detail.value
     })
-    var t_score = e.detail.value;
 
     wx.request({
       url: 'https://wx.kuuvv.com/api/food/add_score',
@@ -208,7 +232,7 @@ Page({
         code: app.globalData.m_code,
         encryptedData: app.globalData.encryptedData,
         iv: app.globalData.iv,
-        food_id: "1000",
+        food_id: m_curConfig.food_id,
         score: t_score,
       },
       header: {
@@ -219,16 +243,37 @@ Page({
 
         wx.hideLoading();
 
-        console.log(res);
+        console.log("评分数据:",res);
 
-        wx.showToast({
-          title: '评分成功',
-          icon: 'success',
-          duration: 3000
-        }); 
+        if (res.data.data == null)
+        {
 
-        //刷新界面
-        that.UpdateUI();
+          if (res.data.meta.code == 2) {
+            wx.showToast({
+              title: '已评分',
+              icon: 'success',
+              duration: 2000
+            });
+
+          } else {
+            wx.showToast({
+              title: '评分异常',
+              icon: 'success',
+              duration: 2000
+            });
+          }
+        }else{
+          app.globalData.m_foodData.score_info = res.data.data;
+
+          wx.showToast({
+            title: '评分成功',
+            icon: 'success',
+            duration: 3000
+          });
+
+          //刷新界面
+          that.UpdateUI();
+        }
       },
       fail: function (res) {
         wx.hideLoading();
@@ -245,23 +290,28 @@ Page({
   {
     m_curConfig = app.globalData.m_foodData;
 
-    console.log(m_curConfig);
+    //console.log(m_curConfig);
 
     this.setData({
       text: m_curConfig.price + '元',
       food_img: m_curConfig.pic_list[0],
       text_describle_details: m_curConfig.food_desc,//商品描述
-      icon_like: m_isLike ? "../res/icon/ic_shortcut_thumb_up.png" : "../res/icon/ic_shortcut_thumb_up_0.png",
+      icon_like: m_curConfig.praise_info.state == 1 ? "../res/icon/ic_shortcut_thumb_up.png" : "../res/icon/ic_shortcut_thumb_up_0.png",
       text_toScoreNumbers: m_curConfig.score_info.count,
       text_score: m_curConfig.score_info.score,
     });
+
+    wx.setNavigationBarTitle({
+      title: m_curConfig.name,
+    })
 
     this.setStar(m_curConfig.score_info.score);
   },
   //星星评分
   setStar:function(e)
   {
-     var score =e;
+    //console.log(e);
+     var score =e.toString();
      switch(score)
      {
        case "5":

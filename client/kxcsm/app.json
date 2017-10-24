@@ -1,10 +1,11 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/mainPage/mainPage",        
+    "pages/mainPage/mainPage",
     "pages/logs/logs",
     "pages/myNote/myNote",
-    "pages/appSetting/appSetting"
+    "pages/appSetting/appSetting",
+    "pages/iLike/iLike"
   ],
   "window": {
     "backgroundTextStyle": "light",

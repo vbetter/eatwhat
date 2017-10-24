@@ -63,7 +63,18 @@ Page({
 
         wx.hideLoading();
 
-        console.log("res:",res);
+        console.log("菜单数据:",res);
+
+        if (res.statusCode !=200)
+        {
+          wx.showToast({
+            title: '获取菜单失败',
+            icon: 'loading',
+            duration: 2000
+          });
+
+          return;
+        }
 
         if (res.data.data==null)
         {
@@ -143,7 +154,7 @@ Page({
 
         wx.hideLoading();
 
-        console.log(res);
+        console.log("登录服务器:",res);
 
         if (res.data.data==null)
         {
