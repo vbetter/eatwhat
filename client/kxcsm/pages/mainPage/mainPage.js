@@ -6,6 +6,7 @@ var m_curConfig;
 
 var m_enableUse = true;//能否界面交互
 
+var m_isLoading = false;//是否在loading
 
 //获取应用实例
 const app = getApp()
@@ -31,15 +32,18 @@ Page({
   },
   onLoad: function () 
   {
-    var that = this;
-
     m_curConfig = app.globalData.m_foodData;
+  },
+  onShow: function () {
 
-    this.UpdateUI();
+  },
+  onReady: function () {
 
     wx.setNavigationBarTitle({
       title: m_curConfig.name,
     })
+
+    this.UpdateUI();
   },
   //点击喜欢
   btn_like: function(e) 
@@ -166,7 +170,13 @@ Page({
   },
   onPullDownRefresh: function () {    
     //console.log("加载中");
+
+    if (m_isLoading == true) {
+        return;
+    }
     var that = this;
+
+    m_isLoading = true;
 
     wx.showLoading({
       title: '加载中',
@@ -186,8 +196,6 @@ Page({
       },
       success: function (res) {
 
-        wx.hideLoading();
-
         console.log("菜单数据:", res);
 
         if (res.statusCode != 200) {
@@ -200,10 +208,15 @@ Page({
           return;
         }
 
+        m_isLoading = false;
+        wx.hideLoading();
+        wx.stopPullDownRefresh();
+
         app.globalData.m_foodData = res.data.data.food_info;
         that.UpdateUI();
       },
       fail: function (res) {
+        m_isLoading = false;
         wx.hideLoading();
 
         wx.showToast({
@@ -211,10 +224,10 @@ Page({
           icon: 'loading',
           duration: 2000
         });
+
+        wx.stopPullDownRefresh();
       }
     })
-
-    wx.stopPullDownRefresh();
   },
   //评分
   bindPickerChange: function (e) {
@@ -291,10 +304,12 @@ Page({
     m_curConfig = app.globalData.m_foodData;
 
     //console.log(m_curConfig);
+    var img = m_curConfig.pic_list[0];
+    console.log("img:",img);
 
     this.setData({
       text: m_curConfig.price + '元',
-      food_img: m_curConfig.pic_list[0],
+      food_img: img,
       text_describle_details: m_curConfig.food_desc,//商品描述
       icon_like: m_curConfig.praise_info.state == 1 ? "../res/icon/ic_shortcut_thumb_up.png" : "../res/icon/ic_shortcut_thumb_up_0.png",
       text_toScoreNumbers: m_curConfig.score_info.count,
@@ -306,6 +321,9 @@ Page({
     })
 
     this.setStar(m_curConfig.score_info.score);
+  },
+  imageError: function (e) {
+    console.log('image发生error事件，携带值为', e.detail.errMsg)
   },
   //星星评分
   setStar:function(e)

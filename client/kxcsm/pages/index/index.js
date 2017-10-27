@@ -32,6 +32,17 @@ Page({
     })
   },
   btn_enter: function (e) {
+    if (app.globalData.encryptedData == null) {
+      wx.showToast({
+        title: '登录失败,点击头像',
+        icon: 'loading',
+        duration: 2000
+      });
+
+      return;
+    }
+    
+
     if (!m_isLogin) {
       wx.showToast({
         title: '登录失败,再点一下试试',
@@ -138,6 +149,7 @@ Page({
     wx.showLoading({
       title: '加载中',
     })
+    console.log(app.globalData.encryptedData)
 
     wx.request({
       url: 'https://wx.kuuvv.com/api/user/wechatlogin',
@@ -196,11 +208,33 @@ Page({
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
       // 所以此处加入 callback 以防止这种情况
       app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-        this.login_server();
+        console.log("app.userInfoReadyCallback,res:",res)
+
+        if (res.userInfo == null || res.userInfo == undefined)
+        {
+          wx.getUserInfo({
+            success: res => {
+              app.globalData.userInfo = res.userInfo
+              app.globalData.encryptedData = res.encryptedData
+              app.globalData.iv = res.iv
+
+              //console.log(app.globalData.userInfo)
+
+              this.setData({
+                userInfo: res.userInfo,
+                hasUserInfo: true
+              })
+              this.login_server();
+            }
+          })
+          return;
+        }else{
+          this.setData({
+            userInfo: res.userInfo,
+            hasUserInfo: true
+          })
+          this.login_server();
+        }
       }
     } else {
       // 在没有 open-type=getUserInfo 版本的兼容处理
