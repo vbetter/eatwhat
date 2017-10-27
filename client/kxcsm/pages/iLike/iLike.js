@@ -7,10 +7,10 @@ Page({
   data: {
     checkboxItems: [
       { name: '辣', value: '0', checked: true },
-      { name: '甜', value: '0' },
-      { name: '面食', value: '0' },
-      { name: '肉', value: '0' },
-      { name: '蔬菜', value: '0' },
+      { name: '甜', value: '1' },
+      { name: '面食', value: '2' },
+      { name: '肉', value: '3' },
+      { name: '蔬菜', value: '4' },
     ],
   },
 
