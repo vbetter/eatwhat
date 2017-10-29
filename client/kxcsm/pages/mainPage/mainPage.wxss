@@ -3,23 +3,10 @@
     height: 100%;
 }
 
-.tops
-{
-  display: flex;
-  position:absolute;
-  text-align: center;
-}
-
 .label_bg
 {
   display: flex;
   width: 100%;
-}
-
-.img_grade
-{
-  display: flex;
-  position:absolute;
 }
 
 .icon_price_view
@@ -30,21 +17,6 @@
   text-align: center;
 }
 
-.label_score
-{
-  display: inline-flex;
-  position:absolute;
-  margin-left: 100rpx;
-}
-
-.label_peopleNumb
-{
-  display: inline-flex;
-  position:absolute;
-  margin-left: 100rpx;
-  margin-top: 40rpx;
-  text-align: center;
-}
 
 .icons
 {
@@ -55,89 +27,6 @@
   justify-content:center;
   position:absolute;
   margin-top: -90rpx;
-}
-
-.btns
-{
-   display: inline-flex;
-   width: 100%;
-   flex-direction: row;
-   flex-wrap: wrap;
-   justify-content:center;
-   margin-top: 50rpx;
-}
-
-
-.msg-title
-{
-  display: inline-flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.quanbuhuifu
-{
-  margin-left: 20rpx;
-justify-content:center;
-}
-
-.content-info
-{
-  display: inline-flex;
-  font-size: 25rpx;
-  flex-direction: row;
-  align-items: center;
-  justify-content:center;
-}
-
-/*聊天栏*/
-.msg-box{
-  
-}
-
-/*
-.send-box{
- 
-}
-.msg-info{
-  font-size: 25rpx;
-  color:#339999;
-  padding:20rpx;
-}
-*/
-
-.input{
-  border:1px solid #999;
-  padding:20rpx;
-  text-align:left;
-  font-size: 25rpx;
-}
-.place-input{
-  color:#aaa;
-}
-
-.list-view{
-  margin:20px 0 0 0;
-}
-
-.awardItem
-{
- overflow:hidden;
-}
-
-.item{
-  overflow:hidden;
-  border-bottom:1px dashed #999;
-  line-height: 30px;
-  height:30px;
-  padding:20rpx;
-}
-.text1{
-  float:left;
-}
-.close-btn{
-  float:right;
-  margin:5px 5px 0 0
 }
 
 .page__bd{

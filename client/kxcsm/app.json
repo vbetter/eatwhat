@@ -5,7 +5,9 @@
     "pages/logs/logs",
     "pages/myNote/myNote",
     "pages/appSetting/appSetting",
-    "pages/iLike/iLike"
+    "pages/iLike/iLike",
+    "pages/comment/commentPage",
+    "pages/recordPage/recordPage"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -62,5 +62,14 @@ App({
     token:null,
     m_foodData:null,
     m_foodType:1,
-  }
+    m_record:[],
+  },
+  addRecord: function(data)
+  {
+    if (this.globalData.m_record.length >=10)
+    {
+      this.globalData.m_record.shift();
+    }
+    this.globalData.m_record.push(data);
+  },
 })

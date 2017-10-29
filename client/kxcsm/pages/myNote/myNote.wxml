@@ -1,6 +1,22 @@
 <view class="page">
-    <view class="page__hd">
-        <view class="page__title">正在开发中...</view>
+    <view class="page__bd">
+        <view class="weui-article">
+            
+            <view class="weui-article__section">
+                <view class="weui-article__section">
+                    <view class="weui-article__h3">简介</view>
+                    <view class="weui-article__p">
+                        因为实在不知道每天吃什么，想通过开发一款app根据用户的偏好来推荐菜单，减化选择流程。
+                    </view>
+                </view>
+                <view class="weui-article__section">
+                    <view class="weui-article__h3">1.0.0 版本，2017-10-29</view>
+                    <view class="weui-article__p">
+                        基础功能完结：推荐菜单、点赞、评分、导航、联系客服、偏好。
+                    </view>
+                </view>
+            </view>
+        </view>
     </view>
     
 </view>

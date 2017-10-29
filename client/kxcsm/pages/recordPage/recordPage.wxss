@@ -1,0 +1,5 @@
+/* pages/recordPage/recordPage.wxss */
+.page{
+    position: relative;
+    height: 100%;
+}

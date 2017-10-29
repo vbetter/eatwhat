@@ -14,8 +14,9 @@ const app = getApp()
 Page({
   data: 
   {
-    food_img: '../res/img/white.jpg',
+    food_img: null,
     text: '',
+    m_shopName:"",
     icon_comment:"../res/icon/ic_position.png",
     icon_mark:"../res/icon/ic_shortcut_star_0.png",
     icon_like:"../res/icon/ic_shortcut_thumb_up_0.png",
@@ -35,15 +36,11 @@ Page({
     m_curConfig = app.globalData.m_foodData;
   },
   onShow: function () {
-
+    this.UpdateUI();
   },
   onReady: function () {
 
-    wx.setNavigationBarTitle({
-      title: m_curConfig.name,
-    })
-
-    this.UpdateUI();
+    
   },
   //点击喜欢
   btn_like: function(e) 
@@ -213,6 +210,8 @@ Page({
         wx.stopPullDownRefresh();
 
         app.globalData.m_foodData = res.data.data.food_info;
+
+        app.addRecord(app.globalData.m_foodData);//记录浏览数据
         that.UpdateUI();
       },
       fail: function (res) {
@@ -303,12 +302,13 @@ Page({
   {
     m_curConfig = app.globalData.m_foodData;
 
-    //console.log(m_curConfig);
+    console.log(m_curConfig);
     var img = m_curConfig.pic_list[0];
     console.log("img:",img);
 
     this.setData({
       text: m_curConfig.price + '元',
+      m_shopName: "店名 : " + m_curConfig.shop_name,
       food_img: img,
       text_describle_details: m_curConfig.food_desc,//商品描述
       icon_like: m_curConfig.praise_info.state == 1 ? "../res/icon/ic_shortcut_thumb_up.png" : "../res/icon/ic_shortcut_thumb_up_0.png",
@@ -321,7 +321,8 @@ Page({
     })
 
     this.setStar(m_curConfig.score_info.score);
-  },
+  }
+  ,
   imageError: function (e) {
     console.log('image发生error事件，携带值为', e.detail.errMsg)
   },

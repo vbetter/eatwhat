@@ -12,53 +12,54 @@
 
 <!--操作icon-->
 <view class="icons" >
-<image style="width: 200rpx; height: 80rpx; " mode="aspectFit" src="../res/icon/ic_shortcut_phone.png" bindtap="btn_phone"></image>
-<image style="width: 200rpx; height: 80rpx; " mode="aspectFit" src="../res/icon/ic_position.png" bindtap="btn_position"></image>
-<image style="width: 200rpx; height: 80rpx; "  mode="aspectFit" src= "{{icon_like}}" bindtap="btn_like"></image>
+  <image style="width: 200rpx; height: 80rpx; " mode="aspectFit" src="../res/icon/ic_shortcut_phone.png" bindtap="btn_phone"></image>
+  <image style="width: 200rpx; height: 80rpx; " mode="aspectFit" src="../res/icon/ic_position.png" bindtap="btn_position"></image>
+  <image style="width: 200rpx; height: 80rpx; "  mode="aspectFit" src= "{{icon_like}}" bindtap="btn_like"></image>
 </view>
 
 <!--信息-->
         <view class="weui-panel">
+        <view class="weui-panel__hd ">{{m_shopName}}</view>
             <view class="weui-panel__bd ">
+
                 <view class="weui-media-box weui-media-box_small-appmsg">
+
                     <view class="weui-cells weui-cells_in-small-appmsg">
-                    <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
-                        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-                            <view class="weui-cell__hd" >推荐理由
-                            <image src="{{star_1}}"  style=" width: 20px;height: 20px"/>
-                                                        <image src="{{star_2}}"  style="width: 20px;height: 20px"/>
-                                                                                    <image src="{{star_3}}"  style=" width: 20px;height: 20px"/>
-                                                        <image src="{{star_4}}" style="width: 20px;height: 20px"/>
-                                                                                                                <image src="{{star_5}}" style="width: 20px;height: 20px"/>
-                            </view>
-                            
-                            <view class="weui-cell__bd weui-cell_primary">
-                                <view> {{text_score}}星 ({{text_toScoreNumbers}}人评分)</view>
-                            </view>
+                          <navigator url="../comment/commentPage" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                              <view class="weui-cell__hd" >评分:
+                                <image src="{{star_1}}"  style=" width: 20px;height: 20px"/>
+                                <image src="{{star_2}}"  style="width: 20px;height: 20px"/>
+                                <image src="{{star_3}}"  style=" width: 20px;height: 20px"/>
+                                <image src="{{star_4}}" style="width: 20px;height: 20px"/>
+                                <image src="{{star_5}}" style="width: 20px;height: 20px"/>
+                                
+                              </view>
+                              
+                              <view class="weui-cell__bd weui-cell_primary">
+                                  <view> {{text_score}}星 ({{text_toScoreNumbers}}人评分)</view>
+                              </view>
 
-                            <view class="weui-cell__ft weui-cell__ft_in-access" bindtap="btn_score"></view>               
-                            
-                        </view>
-                                    </picker>
-
+                              <view class="weui-cell__ft weui-cell__ft_in-access" ></view>
+                          </navigator>
                     </view>
-                                <view class="weui-panel__bd">
-                <view class="weui-media-box weui-media-box_text">
-                    <view class="weui-media-box__desc">{{text_describle_details}}</view>
+
+                    <view class="weui-panel__bd">
+                      <view class="weui-media-box weui-media-box_small-appmsg">
+                        <view class="weui-cells weui-cells_in-small-appmsg">
+                            <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                                <view class="weui-cell__hd"><image src="../res/icon/ic_smile_2.png" style="width: 20px;height: 20px;margin-right: 5px" /></view>
+                                  <view class="weui-cell__bd weui-cell_primary">
+                                    <view>{{text_describle_details}}</view>
+                                  </view>
+                            </view>
+
                 </view>
+            </view>
+
             </view>
                 </view>
             </view>
         </view>
-
-
-
-
-
-
- 
-
-
 
 
 </view>

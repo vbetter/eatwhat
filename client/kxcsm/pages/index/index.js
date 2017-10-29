@@ -98,6 +98,9 @@ Page({
           console.log("[request] m_foodType:",app.globalData.m_foodType);
         }else{
           app.globalData.m_foodData = res.data.data.food_info;
+
+          app.addRecord(app.globalData.m_foodData);//记录浏览数据
+          
           wx.navigateTo({
             url: '../mainPage/mainPage'
           })
