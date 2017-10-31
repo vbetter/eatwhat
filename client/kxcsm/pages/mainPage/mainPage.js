@@ -128,8 +128,8 @@ Page({
   },
   //点击地址
   btn_position: function (e) {
-    var t_latitude = 22.548300;
-    var t_longitude = 113.944440;
+    var t_latitude = Number(m_curConfig.latitude);
+    var t_longitude = Number(m_curConfig.longitude);
     wx.getLocation({
       type: 'gcj02', //返回可以用于wx.openLocation的经纬度
       success: function (res) {
