@@ -304,7 +304,7 @@ Page({
 
     console.log(m_curConfig);
     var img = m_curConfig.pic_list[0];
-    console.log("img:",img);
+    //console.log("img:",img);
 
     this.setData({
       text: m_curConfig.price + '元',
@@ -313,7 +313,7 @@ Page({
       text_describle_details: m_curConfig.food_desc,//商品描述
       icon_like: m_curConfig.praise_info.state == 1 ? "../res/icon/ic_shortcut_thumb_up.png" : "../res/icon/ic_shortcut_thumb_up_0.png",
       text_toScoreNumbers: m_curConfig.score_info.count,
-      text_score: m_curConfig.score_info.score,
+      text_score: m_curConfig.score_info.score.toFixed(1),
     });
 
     wx.setNavigationBarTitle({
